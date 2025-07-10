@@ -1,21 +1,27 @@
-public class Solution {
-    public int solve(ArrayList<Integer> A, int B) {
-int n=A.size();
-int maxSum=Integer.MIN_VALUE;
 
 
 // IN THE FST LOOP WE ARE TAKING 0 ELEMENTS FROM LEFT AND b ELEMENTS FROM RIGHT , THE 1 FROM LEFT AND b-1 FROM RIGHT .. AND SO ON
-for(int i=0;i<=B;i++){
+public class Solution {
+    public int solve(ArrayList<Integer> A, int B) {
+int n=A.size();
 int sum=0;
-   for(int k=0;k<i;k++){
-       sum+=A.get(k);
-   }
-   for(int k=n-(B-i);k<n;k++){
-       sum+=A.get(k);
-   }
-   maxSum=Math.max(maxSum,sum);
+
+for(int i=0;i<B;i++){
+   sum+=A.get(i);
 }
+int maxSum=sum;
+
+
+int k=1;
+while(k<=B){
+    sum=sum+A.get(n-k)-A.get(B-k);
+    maxSum=Math.max(maxSum, sum);
+    k++;
+}
+
 return maxSum;
     }
 }
+
+
 
