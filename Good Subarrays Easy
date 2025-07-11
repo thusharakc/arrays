@@ -1,0 +1,58 @@
+Given an array of integers A, a subarray of an array is said to be good if it fulfills any one of the criteria:
+1. Length of the subarray is be even, and the sum of all the elements of the subarray must be less than B.
+2. Length of the subarray is be odd, and the sum of all the elements of the subarray must be greater than B.
+Your task is to find the count of good subarrays in A.
+
+//bruteforce
+
+public class Solution {
+    public int solve(ArrayList<Integer> A, int B) {
+        int n=A.size();
+        int COUNT=0;
+
+        for(int i=0;i<n;i++){
+            for(int j=i;j<n;j++){
+                int sum=0;
+                for(int k=i;k<=j;k++){
+                    sum+=A.get(k);
+
+                }
+                if(((j-i+1)%2==0 && sum<B )|| ((j-i+1)%2!=0 && sum>B )){
+                        COUNT++;
+                    }
+            }
+        }
+        return COUNT;
+    }
+}
+
+//// using PREFIX SUM
+
+public class Solution {
+    public int solve(ArrayList<Integer> A, int B) {
+        int n=A.size(),count=0;
+        ArrayList<Integer> prefixSum=new ArrayList<Integer> ();
+        prefixSum.add(0,A.get(0));
+        for(int k=1;k<n;k++){
+            prefixSum.add(k,prefixSum.get(k-1)+A.get(k));
+        }
+
+        for(int i=0;i<n;i++){
+            for(int j=i;j<n;j++){
+                int sum=0;
+                if(i==0){
+                    sum=prefixSum.get(j);
+                }else{
+                    sum=prefixSum.get(j)-prefixSum.get(i-1);
+                }
+                    int subarraysize=j-i+1;
+                if((subarraysize%2==0 && sum<B) || (subarraysize%2!=0 && sum>B)){
+                    count++;
+                }
+            }
+
+        }
+        return count;
+      
+    }
+}
