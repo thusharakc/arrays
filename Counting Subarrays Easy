@@ -1,0 +1,22 @@
+Given an array A of N non-negative numbers and a non-negative number B,
+you need to find the number of subarrays in A with a sum less than B.
+We may assume that there is no overflow
+
+
+//CARRY FORWARD METHOD
+public class Solution {
+    public int solve(ArrayList<Integer> A, int B) {
+       int  COUNT=0;
+        int n=A.size();
+        for(int i=0;i<n;i++){
+            int sum=0;
+            for(int k=i;k<n;k++){
+                sum+=A.get(k);
+                if(sum<B){
+                    COUNT++;
+                }
+            }
+        }
+        return COUNT;
+    }
+}
